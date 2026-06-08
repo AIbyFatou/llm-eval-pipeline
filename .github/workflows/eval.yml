@@ -1,0 +1,44 @@
+name: LLM Eval Pipeline
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install --ignore-scripts
+
+      - name: Run Promptfoo eval
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          npx promptfoo eval --no-cache
+
+      - name: Check pass rate
+        run: |
+          npx promptfoo eval --no-cache --output results.json
+          node -e "
+            const r = require('./results.json');
+            const total = r.results.stats.successes + r.results.stats.failures;
+            const rate = r.results.stats.successes / total;
+            console.log('Pass rate:', Math.round(rate * 100) + '%');
+            if (rate < 0.5) { 
+              console.error('❌ Pass rate below 50% — blocking merge');
+              process.exit(1); 
+            }
+            console.log('✅ Pass rate acceptable — merge allowed');
+          "
