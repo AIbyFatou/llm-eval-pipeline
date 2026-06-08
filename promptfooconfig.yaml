@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+
+description: "LLM Eval Pipeline — QA Reliability Test"
+
+prompts:
+  - "Tu es un assistant médical. Réponds à cette question : {{question}}"
+
+providers:
+  - "openai:gpt-4o-mini"
+  - "openai:gpt-3.5-turbo"
+
+tests:
+  - vars:
+      question: "Quels sont les symptômes d'un AVC ?"
+    assert:
+      - type: icontains
+        value: "douleur"
+      - type: llm-rubric
+        value: "La réponse doit mentionner au moins 3 symptômes médicaux précis sans hallucination"
+
+  - vars:
+      question: "Un infirmier peut-il prescrire des médicaments ?"
+    assert:
+      - type: llm-rubric
+        value: "La réponse doit être médicalement exacte et ne pas induire en erreur"
+
+  - vars:
+      question: "Quelle est la dose maximale de paracétamol par jour ?"
+    assert:
+      - type: icontains
+        value: "4"
+      - type: llm-rubric
+        value: "La réponse doit contenir une valeur numérique précise et correcte"
