@@ -1,0 +1,15 @@
+{
+  "name": "llm-eval-pipeline",
+  "version": "1.0.0",
+  "description": "LLM Eval Pipeline — Automated evaluation of LLM outputs using Promptfoo. Detects hallucination, measures relevance and faithfulness. Blocks merge if quality score drops below threshold.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "promptfoo": "^0.120.19"
+  }
+}
