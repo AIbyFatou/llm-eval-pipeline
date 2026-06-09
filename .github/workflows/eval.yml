@@ -32,7 +32,7 @@ jobs:
         env:
             OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          npx promptfoo eval --no-cache --output results.json
+          npx promptfoo eval --no-cache --output results.json || true
           node -e "
             const r = require('./results.json');
             const total = r.results.stats.successes + r.results.stats.failures;
