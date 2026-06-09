@@ -26,7 +26,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          npx promptfoo eval --no-cache
+          npx promptfoo eval --no-cache || true
 
       - name: Check pass rate
         run: |
