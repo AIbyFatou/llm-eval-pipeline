@@ -14,7 +14,7 @@ tests:
       question: "Quels sont les symptômes d'un AVC ?"
     assert:
       - type: icontains
-        value: "douleur"
+        value: "faiblesse"
       - type: llm-rubric
         value: "La réponse doit mentionner au moins 3 symptômes médicaux précis sans hallucination"
 
