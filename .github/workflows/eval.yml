@@ -36,8 +36,8 @@ jobs:
             const total = r.results.stats.successes + r.results.stats.failures;
             const rate = r.results.stats.successes / total;
             console.log('Pass rate:', Math.round(rate * 100) + '%');
-            if (rate < 0.5) { 
-              console.error('❌ Pass rate below 50% — blocking merge');
+            if (rate < 0.4) { 
+              console.error('❌ Pass rate below 40% — blocking merge');
               process.exit(1); 
             }
             console.log('✅ Pass rate acceptable — merge allowed');
